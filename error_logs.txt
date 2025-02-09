@@ -1,0 +1,29 @@
+main.cpp: In member function ‘void ConcurrentHashMap<K, V>::display() const’:
+main.cpp:59:14: error: ‘shared_lock’ is not a member of ‘std’
+   59 |         std::shared_lock<std::mutex> lock(display_mutex_);
+      |              ^~~~~~~~~~~
+main.cpp:59:14: note: ‘std::shared_lock’ is only available from C++14 onwards
+main.cpp:59:36: error: expected primary-expression before ‘>’ token
+   59 |         std::shared_lock<std::mutex> lock(display_mutex_);
+      |                                    ^
+main.cpp:59:42: error: no matching function for call to ‘lock(std::mutex&)’
+   59 |         std::shared_lock<std::mutex> lock(display_mutex_);
+      |                                      ~~~~^~~~~~~~~~~~~~~~
+In file included from main.cpp:5:
+/usr/include/c++/13/mutex:693:5: note: candidate: ‘template void std::lock(_L1&, _L2&, _L3& ...)’
+  693 |     lock(_L1& __l1, _L2& __l2, _L3&... __l3)
+      |     ^~~~
+/usr/include/c++/13/mutex:693:5: note:   template argument deduction/substitution failed:
+main.cpp:59:42: note:   candidate expects at least 2 arguments, 1 provided
+   59 |         std::shared_lock<std::mutex> lock(display_mutex_);
+      |                                      ~~~~^~~~~~~~~~~~~~~~
+main.cpp: In instantiation of ‘std::mutex& ConcurrentHashMap<K, V>::get_mutex(const K&) [with K = std::__cxx11::basic_string<char>; V = Order]’:
+main.cpp:15:43:   required from ‘void ConcurrentHashMap::insert(const K&, const V&) [with K = std::__cxx11::basic_string; V = Order]’
+main.cpp:70:9:   required from ‘void ConcurrentHashMap::test() [with K = std::__cxx11::basic_string; V = Order]’
+main.cpp:123:23:   required from here
+main.cpp:98:27: error: use of deleted function ‘std::mutex& std::mutex::operator=(const std::mutex&)’
+   98 |             mutexes_[key] = std::mutex();
+      |             ~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+In file included from /usr/include/c++/13/mutex:45:
+/usr/include/c++/13/bits/std_mutex.h:108:12: note: declared here
+  108 |     mutex& operator=(const mutex&) = delete;
